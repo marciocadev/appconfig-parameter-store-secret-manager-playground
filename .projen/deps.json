@@ -90,8 +90,20 @@
       "type": "override"
     },
     {
+      "name": "@aws-sdk/client-appconfig",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-sdk/client-ssm",
+      "type": "runtime"
+    },
+    {
       "name": "aws-cdk-lib",
       "version": "^2.44.0",
+      "type": "runtime"
+    },
+    {
+      "name": "axios",
       "type": "runtime"
     },
     {

@@ -5,9 +5,10 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   name: 'appconfig-parameter-store-secret-manager-playground',
   projenrcTs: true,
 
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
+  deps: [
+    'axios',
+    '@aws-sdk/client-appconfig',
+    '@aws-sdk/client-ssm',
+  ],
 });
 project.synth();
