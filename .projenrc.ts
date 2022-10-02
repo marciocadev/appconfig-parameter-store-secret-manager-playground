@@ -7,8 +7,10 @@ const project = new awscdk.AwsCdkTypeScriptApp({
 
   deps: [
     'axios',
+    'source-map-support',
     '@aws-sdk/client-appconfig',
     '@aws-sdk/client-ssm',
+    '@aws-sdk/client-secrets-manager',
   ],
 });
 project.synth();

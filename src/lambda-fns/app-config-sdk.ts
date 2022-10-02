@@ -1,3 +1,4 @@
+import 'source-map-support/register';
 import { AppConfigClient, GetHostedConfigurationVersionCommand, GetHostedConfigurationVersionCommandInput } from '@aws-sdk/client-appconfig';
 
 const client = new AppConfigClient({ region: process.env.AWS_REGION });

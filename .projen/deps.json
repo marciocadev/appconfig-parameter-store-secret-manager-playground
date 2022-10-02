@@ -94,6 +94,10 @@
       "type": "runtime"
     },
     {
+      "name": "@aws-sdk/client-secrets-manager",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-sdk/client-ssm",
       "type": "runtime"
     },
@@ -109,6 +113,10 @@
     {
       "name": "constructs",
       "version": "^10.0.5",
+      "type": "runtime"
+    },
+    {
+      "name": "source-map-support",
       "type": "runtime"
     }
   ],

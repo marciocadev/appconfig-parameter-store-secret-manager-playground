@@ -1,3 +1,4 @@
+import 'source-map-support/register';
 import { SSMClient, GetParameterCommand, GetParameterCommandInput } from '@aws-sdk/client-ssm';
 
 const client = new SSMClient({ region: process.env.AWS_REGION });

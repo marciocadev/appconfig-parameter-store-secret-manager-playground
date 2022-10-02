@@ -1,3 +1,4 @@
+import 'source-map-support/register';
 import axios from 'axios';
 
 export const handler = async() => {
