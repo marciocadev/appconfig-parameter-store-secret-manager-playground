@@ -1,3 +1,4 @@
+import 'source-map-support/register';
 import { NestedStack, NestedStackProps } from 'aws-cdk-lib';
 import { ParameterDataType, StringParameter, StringListParameter } from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
@@ -22,7 +23,7 @@ export class ParameterStoreStack extends NestedStack {
     });
 
     this.stringListParameter = new StringListParameter(this, 'StringListParameter', {
-      stringListValue: ['props.parameterStoreArrayParameter'],
+      stringListValue: props.parameterStoreArrayParameter,
       parameterName: '/my-param/string-list-parameter',
     });
   }

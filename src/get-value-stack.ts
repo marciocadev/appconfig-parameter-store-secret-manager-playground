@@ -1,3 +1,4 @@
+import 'source-map-support/register';
 import { join } from 'path';
 import { Duration, NestedStack, NestedStackProps } from 'aws-cdk-lib';
 import { CfnApplication, CfnConfigurationProfile, CfnEnvironment, CfnHostedConfigurationVersion } from 'aws-cdk-lib/aws-appconfig';

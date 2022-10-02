@@ -1,4 +1,5 @@
-import { App, CfnParameter, Stack, StackProps } from 'aws-cdk-lib';
+import 'source-map-support/register';
+import { App, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AppConfigStack } from './appconfig-stack';
 import { GetValueStack } from './get-value-stack';
@@ -15,19 +16,19 @@ export class MyStack extends Stack {
 
     const { application, configurationProfile, hostedConfigurationVersion, appConfigEnvironment } = new AppConfigStack(this, 'appconfig-stack');
 
-    const parameterStoreStringParam = new CfnParameter(this, 'ParameterStoreStringParameter', { type: 'String' });
-    console.log('parameter store string 👉', parameterStoreStringParam.valueAsString, Stack.of(this).resolve(parameterStoreStringParam));
-    const parameterStoreArrayParam = new CfnParameter(this, 'ParameterStoreArrayParameter', { type: 'CommaDelimitedList' });
-    console.log('parameter store array 👉', parameterStoreArrayParam.valueAsList, Stack.of(this).resolve(parameterStoreArrayParam));
+    const parameterStr = this.node.tryGetContext('ParameterStoreStringParameter');
+    console.log('parameter store string 👉', parameterStr);
+    const parameterArr = (this.node.tryGetContext('ParameterStoreArrayParameter') as string).split(',');
+    console.log('parameter store array 👉', parameterArr);
     const { stringParameter, stringListParameter } = new ParameterStoreStack(this, 'parameter-store-stack', {
-      parameterStoreStringParameter: parameterStoreStringParam.valueAsString,
-      parameterStoreArrayParameter: parameterStoreArrayParam.valueAsList,
+      parameterStoreStringParameter: parameterStr,
+      parameterStoreArrayParameter: parameterArr,
     });
 
-    const secretParam = new CfnParameter(this, 'SecretParameter', { type: 'String' });
-    console.log('secret parameter 👉', secretParam.valueAsString, Stack.of(this).resolve(secretParam));
+    const secretStr = this.node.tryGetContext('SecretParameter');
+    console.log('secret parameter 👉', secretStr);
     const { secret } = new SecretManagerStack(this, 'secret-manager-stack', {
-      secretParameter: secretParam.valueAsString,
+      secretParameter: secretStr,
     });
 
     new GetValueStack(this, 'get-value', {

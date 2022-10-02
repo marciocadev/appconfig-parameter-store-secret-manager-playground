@@ -12,7 +12,7 @@ export class SecretManagerStack extends NestedStack {
   constructor(scope: Construct, id: string, props: SecretManagerStackProps) {
     super(scope, id, props);
 
-    this.secret = new Secret(this, 'SecretParameter', {
+    this.secret = new Secret(this, 'Secret', {
       generateSecretString: {
         secretStringTemplate: JSON.stringify({ 'parameter-password': props.secretParameter }),
         generateStringKey: 'cdk-generated-password',
