@@ -12,5 +12,6 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     '@aws-sdk/client-ssm',
     '@aws-sdk/client-secrets-manager',
   ],
+  devDeps: ['@aws-sdk/credential-providers'],
 });
 project.synth();

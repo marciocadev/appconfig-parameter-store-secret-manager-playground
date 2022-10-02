@@ -94,7 +94,7 @@ export class GetValueStack extends NestedStack {
       entry: join(__dirname, 'lambda-fns/secret-manager.ts'),
       handler: 'handler',
       environment: {
-        SECRET_MANAGER_ID: props.secretManager.secretArn,
+        SECRET_MANAGER_ID: props.secretManager.secretName,
       },
       bundling: {
         sourceMap: true,

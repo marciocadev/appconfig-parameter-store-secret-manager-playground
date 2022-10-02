@@ -1,0 +1,30 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "import { fromIni } from '@aws-sdk/credential-providers';\nimport { AppConfigClient, GetHostedConfigurationVersionCommand, GetHostedConfigurationVersionCommandInput } from '@aws-sdk/client-appconfig';\n\nconst client = new AppConfigClient({\n  region: 'us-east-1',\n  credentials: fromIni({profile: 'default'}),\n});\n\nconst handler = async() => {\n\n  const input: GetHostedConfigurationVersionCommandInput = {\n    ApplicationId: 'bb14lsq',\n    ConfigurationProfileId: 'fs19fvp',\n    VersionNumber: parseInt('1'),\n  };\n  const response = await client.send(new GetHostedConfigurationVersionCommand(input));\n  console.log(JSON.parse(String.fromCharCode(...(response.Content!))));\n};\n\nhandler();"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "{ template: 'something', default: { template: 'something' } }",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        }
+    ]
+}
