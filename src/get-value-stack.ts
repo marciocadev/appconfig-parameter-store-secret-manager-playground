@@ -25,22 +25,6 @@ export class GetValueStack extends NestedStack {
   constructor(scope: Construct, id: string, props: GetValueStackProps) {
     super(scope, id, props);
 
-    const lmbParameterStore = new NodejsFunction(this, 'ParameterStoreLambda', {
-      functionName: 'parameter-store',
-      entry: join(__dirname, 'lambda-fns/parameter-store.ts'),
-      handler: 'handler',
-      environment: {
-        STRING_PARAMETER: props.ssmStringParameter.parameterName,
-        STRING_LIST_PARAMETER: props.ssmStringListParameter.parameterName,
-      },
-      bundling: {
-        sourceMap: true,
-        minify: true,
-      },
-    });
-    props.ssmStringParameter.grantRead(lmbParameterStore);
-    props.ssmStringListParameter.grantRead(lmbParameterStore);
-
     const lmbAppConfigSdk = new NodejsFunction(this, 'AppConfigSdkLambda', {
       functionName: 'appconfig-sdk',
       entry: join(__dirname, 'lambda-fns/app-config-sdk.ts'),
@@ -103,5 +87,21 @@ export class GetValueStack extends NestedStack {
       timeout: Duration.minutes(1),
     });
     props.secretManager.grantRead(lmbSecretManager);
+
+    const lmbParameterStore = new NodejsFunction(this, 'ParameterStoreLambda', {
+      functionName: 'parameter-store',
+      entry: join(__dirname, 'lambda-fns/parameter-store.ts'),
+      handler: 'handler',
+      environment: {
+        STRING_PARAMETER: props.ssmStringParameter.parameterName,
+        STRING_LIST_PARAMETER: props.ssmStringListParameter.parameterName,
+      },
+      bundling: {
+        sourceMap: true,
+        minify: true,
+      },
+    });
+    props.ssmStringParameter.grantRead(lmbParameterStore);
+    props.ssmStringListParameter.grantRead(lmbParameterStore);
   }
 }

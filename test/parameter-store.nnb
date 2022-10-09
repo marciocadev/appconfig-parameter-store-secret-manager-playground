@@ -3,7 +3,7 @@
         {
             "language": "typescript",
             "source": [
-                "import { fromIni } from '@aws-sdk/credential-providers';\nimport { SSMClient, GetParameterCommand, GetParameterCommandInput } from '@aws-sdk/client-ssm';\n\nconst client = new SSMClient({\n  region: 'us-east-1',\n  credentials: fromIni({profile: 'default'}),\n});\n\nconst handler = async() => {\n  try {\n    const input1: GetParameterCommandInput = {\n      Name: '/my-param/string-parameter',\n    };\n    const response1 = await client.send(new GetParameterCommand(input1));\n    console.log('strHandler: ', response1.Parameter?.Value);\n\n    const input2: GetParameterCommandInput = {\n      Name: '/my-param/string-list-parameter',\n    };\n    const response2 = await client.send(new GetParameterCommand(input2));\n    console.log('arrHandler: ', response2.Parameter?.Value);\n  } catch (err) {\n    console.log(err);\n  }\n};\n\nhandler();"
+                "import { fromIni } from '@aws-sdk/credential-providers';\nimport { SSMClient, GetParameterCommand, GetParameterCommandInput } from '@aws-sdk/client-ssm';\n\nconst client = new SSMClient({\n  region: 'us-east-1',\n  credentials: fromIni({profile: 'default'}),\n});\n\nconst handler = async() => {\n  try {\n    const input1: GetParameterCommandInput = {\n      Name: '/my-param/string-parameter',\n    };\n    const response1 = await client.send(new GetParameterCommand(input1));\n    console.log('strHandler: ', response1.Parameter?.Value);\n\n    const input2: GetParameterCommandInput = {\n      Name: '/my-param/string-list-parameter',\n    };\n    const response2 = await client.send(new GetParameterCommand(input2));\n    console.log('arrHandler: ', response2.Parameter?.Value);\n\n    // só funciona vinculado a um usuário, por isso não roda no lambda\n    const inputS: GetParameterCommandInput = {\n      Name: '/aws/reference/secretsmanager/secret-manager',\n      WithDecryption: true\n    };\n    const responseS = await client.send(new GetParameterCommand(inputS));\n    console.log('secretHandler: ', responseS.Parameter?.Value);\n    // só funciona vinculado a um usuário, por isso não roda no lambda\n  } catch (err) {\n    console.log(err);\n  }\n};\n\nhandler();"
             ],
             "outputs": [
                 {
@@ -13,6 +13,7 @@
                             "value": [
                                 "strHandler:  string-parameter",
                                 "arrHandler:  first-param,second-param",
+                                "secretHandler:  {\"parameter-password\":\"S0f1@2011\",\"cdk-generated-password\":\"iVcGsT!d+>p)UM\\\\|@JQ4~0ro>X'*\\\"]PK\"}",
                                 ""
                             ]
                         }
